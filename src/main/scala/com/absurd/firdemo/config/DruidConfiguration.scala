@@ -3,6 +3,7 @@ package com.absurd.firdemo.config
 import com.alibaba.druid.support.http.{WebStatFilter, StatViewServlet}
 import org.springframework.boot.context.embedded.{FilterRegistrationBean, ServletRegistrationBean}
 import org.springframework.context.annotation.{Bean, Configuration}
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 /**
   * Created by Administrator on 2016/7/27.
