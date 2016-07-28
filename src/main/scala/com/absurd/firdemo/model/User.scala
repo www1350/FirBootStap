@@ -15,11 +15,14 @@ import scala.annotation.meta.field
  @(Id@field)
  @(GeneratedValue@field)
  @(Column@field)(name = "uid")
-  @JsonIgnore  var id:Long = null.asInstanceOf[Long]
+  @JsonIgnore
+ var id:Long = null.asInstanceOf[Long]
 
  @(Column@field)(name = "username")
    var username:String = null
 
  @(Column@field)(name = "password")
    var password:String = null
+
+
 }

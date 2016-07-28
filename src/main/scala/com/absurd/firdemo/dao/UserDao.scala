@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository
   */
 @Repository
 trait UserDao extends CrudRepository[User, java.lang.Long] {
-
+  def getUserByUsername(username: String): User
 }

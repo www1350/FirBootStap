@@ -5,7 +5,7 @@ import com.absurd.firdemo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.{RestController, RequestMethod, ResponseBody, RequestMapping}
+import org.springframework.web.bind.annotation._
 import org.springframework.web.servlet.ModelAndView
 import collection.JavaConverters._
 
@@ -16,28 +16,34 @@ import collection.JavaConverters._
 @EnableAutoConfiguration
 class HelloController {
 
-  @Autowired  var userService:UserService = _
+  @Autowired var userService: UserService = _
 
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
-  def randomLong():ModelAndView = {
+  def randomLong(): ModelAndView = {
     new ModelAndView("index")
   }
+
   @RequestMapping(value = Array("/index"))
-    def index:String = {
-      "index"
-    }
+  def index: String = {
+    "index"
+  }
 
   @RequestMapping(value = Array("/hello"), method = Array(RequestMethod.GET))
   @ResponseBody
   def hello = {
-//    Map[String, String]("Hello" -> "world").asJava
+    //    Map[String, String]("Hello" -> "world").asJava
     Map[String, String]("Hello" -> "world")
   }
 
 
-  @RequestMapping(value=Array("/getAll"),method=Array(RequestMethod.GET))
+  @RequestMapping(value = Array("/getAll"), method = Array(RequestMethod.GET))
   @ResponseBody
-  def getAll:java.lang.Iterable[User] = userService.getAll
+  def getAll: java.lang.Iterable[User] = userService.getAll
 
+  @RequestMapping(value = Array("/getUser/{username}"), method = Array(RequestMethod.GET))
+  @ResponseBody
+  def getUserByUsername(@PathVariable(value = "username") username: String): User = {
+    userService.getUserByUsername(username)
+  }
 }

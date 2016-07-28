@@ -12,14 +12,18 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserService {
-  @Autowired  var userDao:UserDao = _
-  def  getAll:  java.lang.Iterable[User] = userDao.findAll
-//def  getAll:  java.util.List[User] = {
-// val list =  new  java.util.ArrayList[User]()
-// val u = new User()
-//  u.username="a"
-//  u.password="b"
-//  list.add(u)
-//  list
-//}
+  @Autowired var userDao: UserDao = _
+
+  def getAll: java.lang.Iterable[User] = userDao.findAll
+
+  def getUserByUsername(username: String): User = userDao.getUserByUsername(username)
+
+  //def  getAll:  java.util.List[User] = {
+  // val list =  new  java.util.ArrayList[User]()
+  // val u = new User()
+  //  u.username="a"
+  //  u.password="b"
+  //  list.add(u)
+  //  list
+  //}
 }
