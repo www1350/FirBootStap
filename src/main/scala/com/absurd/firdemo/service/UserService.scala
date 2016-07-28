@@ -1,6 +1,6 @@
 package com.absurd.firdemo.service
 
-import com.absurd.firdemo.dao.UserRepo
+import com.absurd.firdemo.dao.UserDao
 import com.absurd.firdemo.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserService {
-  @Autowired  var userRepo:UserRepo = _
-  def  getAll:  java.util.List[User] = userRepo.findAll()
+  @Autowired  var userDao:UserDao = _
+  def  getAll:  java.lang.Iterable[User] = userDao.findAll
 //def  getAll:  java.util.List[User] = {
 // val list =  new  java.util.ArrayList[User]()
 // val u = new User()

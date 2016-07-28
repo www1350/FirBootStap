@@ -38,6 +38,6 @@ class HelloController {
 
   @RequestMapping(value=Array("/getAll"),method=Array(RequestMethod.GET))
   @ResponseBody
-  def getAll:java.util.List[User] = userService.getAll
+  def getAll:java.lang.Iterable[User] = userService.getAll
 
 }
