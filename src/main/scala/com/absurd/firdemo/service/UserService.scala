@@ -5,7 +5,7 @@ import com.absurd.firdemo.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-
+import collection.JavaConverters._
 /**
   * Created by Administrator on 2016/7/27.
   */
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 class UserService {
   @Autowired var userDao: UserDao = _
 
-  def getAll: java.lang.Iterable[User] = userDao.findAll
+  def getAll: Iterable[User] = userDao.findAll.asScala
 
   def getUserByUsername(username: String): User = userDao.getUserByUsername(username)
 

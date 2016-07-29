@@ -19,10 +19,10 @@ import scala.annotation.meta.field
  var id:Long = null.asInstanceOf[Long]
 
  @(Column@field)(name = "username")
-   var username:String = null
+   var username:String = null.asInstanceOf[String]
 
  @(Column@field)(name = "password")
-   var password:String = null
+   var password:String = null.asInstanceOf[String]
 
 
 }

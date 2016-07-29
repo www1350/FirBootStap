@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
 </head>
 <body>
-hel
+<table>
+
+
+<tr  th:each="user : ${userList}">
+    <td th:text="${user.username}">Onions</td>
+    <td th:text="${user.password}">test@test.com.cn</td>
+</tr>
+</table>
 </body>
 </html>

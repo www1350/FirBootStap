@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.web.bind.annotation._
 import org.springframework.web.servlet.ModelAndView
-
 import collection.JavaConverters._
+
 
 /**
   * Created by Administrator on 2016/7/27.
@@ -26,7 +26,11 @@ class HelloController {
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
   def randomLong(): ModelAndView = {
-    new ModelAndView("index")
+    val userList: Iterable[User] = userService.getAll
+    val map = Map[String,Iterable[User]]("userList"-> userList)
+    new ModelAndView("index",map.asJava)
+//        val map = Map[String,String]("userList"-> "aa")
+        new ModelAndView("index",map.asJava)
   }
 
   @RequestMapping(value = Array("/index"))
@@ -45,7 +49,7 @@ class HelloController {
   @RequestMapping(value = Array("/getAll"), method = Array(RequestMethod.GET))
   @ResponseBody
   def getAll = {
-    val userList: Iterable[User] = userService.getAll.asScala
+    val userList: Iterable[User] = userService.getAll
 
     val strList = new util.ArrayList[String]()
     //求1-100奇数平方和
