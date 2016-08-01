@@ -8,8 +8,11 @@ import com.absurd.firdemo.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation._
 import org.springframework.web.servlet.ModelAndView
+
 import collection.JavaConverters._
 
 
@@ -25,7 +28,7 @@ class HelloController {
 
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
-  def randomLong(): ModelAndView = {
+  def randomLong( @PageableDefault(value=20,page=0)  page :Pageable ): ModelAndView = {
     val userList: java.util.Collection[User] = userService.getAll.asJavaCollection
     val map = Map[String,java.util.Collection[User]]("userList"-> userList)
     new ModelAndView("index",map.asJava)
@@ -33,6 +36,18 @@ class HelloController {
 //        new ModelAndView("index",map.asJava)
 //val map = Map[String,User]("userList"-> userList.head)
 //        new ModelAndView("index",map.asJava)
+  }
+
+  @RequestMapping(value = Array("/getList"), method = Array(RequestMethod.GET))
+  @ResponseBody
+  def getList(@PageableDefault(value=20,page=0)  page :Pageable ): ModelAndView = {
+    val userList: java.util.Collection[User] = userService.getUserList(page).asJavaCollection
+    val map = Map[String,java.util.Collection[User]]("userList"-> userList)
+    new ModelAndView("index",map.asJava)
+    //        val map = Map[String,String]("userList"-> "aa")
+    //        new ModelAndView("index",map.asJava)
+    //val map = Map[String,User]("userList"-> userList.head)
+    //        new ModelAndView("index",map.asJava)
   }
 
   @RequestMapping(value = Array("/index"))

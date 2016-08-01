@@ -3,8 +3,10 @@ package com.absurd.firdemo.service
 import com.absurd.firdemo.dao.UserDao
 import com.absurd.firdemo.model.User
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+
 import collection.JavaConverters._
 /**
   * Created by Administrator on 2016/7/27.
@@ -15,6 +17,8 @@ class UserService {
   @Autowired var userDao: UserDao = _
 
   def getAll: Iterable[User] = userDao.findAll.asScala
+
+  def getUserList(page:Pageable) :  Iterable[User] = userDao.findAll(page).asScala
 
   def getUserByUsername(username: String): User = userDao.getUserByUsername(username)
 
