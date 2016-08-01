@@ -26,11 +26,13 @@ class HelloController {
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
   def randomLong(): ModelAndView = {
-    val userList: Iterable[User] = userService.getAll
-    val map = Map[String,Iterable[User]]("userList"-> userList)
+    val userList: java.util.Collection[User] = userService.getAll.asJavaCollection
+    val map = Map[String,java.util.Collection[User]]("userList"-> userList)
     new ModelAndView("index",map.asJava)
 //        val map = Map[String,String]("userList"-> "aa")
-        new ModelAndView("index",map.asJava)
+//        new ModelAndView("index",map.asJava)
+//val map = Map[String,User]("userList"-> userList.head)
+//        new ModelAndView("index",map.asJava)
   }
 
   @RequestMapping(value = Array("/index"))
