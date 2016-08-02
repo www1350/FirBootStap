@@ -40,7 +40,7 @@ class SecurityUserDetailsService extends  UserDetailsService{
 
   private  def obtionGrantedAuthorities(user : User) : util.Collection[GrantedAuthority] = {
     val authSet = new mutable.HashSet[GrantedAuthority]
-    val roles = roleService.getUserRoles(user.getId)
+    val roles = userService.getUserRoles(user.getId)
     for( r <- roles ) authSet+= new SimpleGrantedAuthority(r.getRoleCode())
     authSet.asJavaCollection
   }

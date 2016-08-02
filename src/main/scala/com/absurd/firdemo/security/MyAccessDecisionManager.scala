@@ -29,5 +29,5 @@ class MyAccessDecisionManager extends  AccessDecisionManager{
 
   override def supports(configAttribute: ConfigAttribute): Boolean = true
 
-  override def supports(aClass: Class[_]): Boolean = true
+  override def supports(clazz: java.lang.Class[_]): Boolean = true
 }

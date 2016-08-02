@@ -1,7 +1,9 @@
 package com.absurd.firdemo.config
 
+import javax.annotation.Resource
+
 import com.absurd.firdemo.security.{MyAccessDecisionManager, MySecurityMetadataSource, SecurityUserDetailsService}
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.{Autowired, Qualifier}
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -17,7 +19,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter{
   @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
-  @Autowired var  accessDecisionManager: MyAccessDecisionManager = _
+  @Autowired  var  accessDecisionManager: MyAccessDecisionManager = _
   @Autowired var securityMetadataSource:MySecurityMetadataSource = _
   override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
 
@@ -37,8 +39,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     http.addFilterBefore(filterSecurityInterceptor,classOf[FilterSecurityInterceptor])
     http.sessionManagement().invalidSessionUrl("/logout")
 //    http.authorizeRequests().accessDecisionManager(accessDecisionManager).accessDeniedPage("/login")
-//    http.httpBasic()
-//    http.csrf().disable()
+    http.httpBasic()
+    http.csrf().disable()
 
 
   }
