@@ -26,6 +26,10 @@ class HelloController {
   @Autowired var userService: UserService = _
   val logger = LoggerFactory.getLogger(classOf[HelloController])
 
+
+  @RequestMapping(value=Array("/login"),method=Array(RequestMethod.POST))
+  def login:String = "login"
+
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
   def randomLong( @PageableDefault(value=20,page=0)  page :Pageable ): ModelAndView = {

@@ -16,6 +16,7 @@ import scala.beans.BeanProperty
  @(Id@field)
  @(GeneratedValue@field)
  @(Column@field)(name = "uid")
+ @BeanProperty
   @JsonIgnore
  var id:Long = null.asInstanceOf[Long]
 
