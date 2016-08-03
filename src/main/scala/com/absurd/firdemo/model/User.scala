@@ -3,6 +3,7 @@ package com.absurd.firdemo.model
 import javax.persistence._
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.GenericGenerator
 
 import scala.annotation.meta.field
 import scala.beans.BeanProperty
@@ -14,7 +15,8 @@ import scala.beans.BeanProperty
 @Table(name = "t_user")
  class User  {
  @(Id@field)
- @(GeneratedValue@field)
+ @GeneratedValue(generator="increment")
+ @GenericGenerator(name="increment", strategy = "increment")
  @(Column@field)(name = "uid")
  @BeanProperty
   @JsonIgnore
@@ -28,5 +30,7 @@ import scala.beans.BeanProperty
  @BeanProperty
    var password:String = null.asInstanceOf[String]
 
-
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  @BeanProperty
+  var permit:Set[Permit] = _
 }

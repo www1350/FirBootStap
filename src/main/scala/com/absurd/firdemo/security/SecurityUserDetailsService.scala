@@ -19,7 +19,7 @@ import collection.JavaConverters._
 /**
   * Created by Administrator on 2016/8/2.
   */
-@Bean
+@Bean(name = Array("securityUserDetailsService"))
 class SecurityUserDetailsService extends  UserDetailsService{
   val logger = LoggerFactory.getLogger(classOf[SecurityUserDetailsService])
   @Autowired var userService : UserService = _

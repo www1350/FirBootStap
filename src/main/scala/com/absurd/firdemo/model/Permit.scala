@@ -3,6 +3,7 @@ package com.absurd.firdemo.model
 import javax.persistence._
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.GenericGenerator
 
 import scala.annotation.meta.field
 import scala.beans.BeanProperty
@@ -14,17 +15,28 @@ import scala.beans.BeanProperty
 @Table(name = "t_permit")
 class Permit {
   @(Id@field)
-  @(GeneratedValue@field)
+  @GeneratedValue(generator="increment")
+  @GenericGenerator(name="increment", strategy = "increment")
   @(Column@field)(name = "id")
   @JsonIgnore
   var id:Long = null.asInstanceOf[Long]
 
-  @(Column@field)(name = "uid")
-  @BeanProperty
-  var uid:Long = null.asInstanceOf[Long]
+//  @(Column@field)(name = "uid")
+//  @BeanProperty
+//  var uid:Long = null.asInstanceOf[Long]
 
 
-  @(Column@field)(name = "rid")
+//  @(Column@field)(name = "rid")
+//  @BeanProperty
+//  var rid:Long = null.asInstanceOf[Long]
+
+  @ManyToOne
+  @JoinColumn(name = "uid")
   @BeanProperty
-  var rid:Long = null.asInstanceOf[Long]
+  var role:Role = _
+
+  @ManyToOne
+  @JoinColumn(name = "rid")
+  @BeanProperty
+  var user:User = _
 }

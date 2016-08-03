@@ -3,6 +3,7 @@ package com.absurd.firdemo.model
 import javax.persistence._
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.GenericGenerator
 
 import scala.annotation.meta.field
 import scala.beans.BeanProperty
@@ -14,8 +15,10 @@ import scala.beans.BeanProperty
 @Table(name = "t_role")
 class Role {
   @(Id@field)
-  @(GeneratedValue@field)
+  @GeneratedValue(generator="increment")
+  @GenericGenerator(name="increment", strategy = "increment")
   @(Column@field)(name = "id")
+  @BeanProperty
   @JsonIgnore
   var id:Long = null.asInstanceOf[Long]
 
@@ -26,4 +29,8 @@ class Role {
   @(Column@field)(name = "rolecode")
   @BeanProperty
   var roleCode:String = null.asInstanceOf[String]
+
+  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+  @BeanProperty
+  var permit:Set[Permit] = _
 }

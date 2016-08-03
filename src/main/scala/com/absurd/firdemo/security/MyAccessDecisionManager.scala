@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
   * authentication用户信息，object访问的url，configAttributes url对应的角色
   * Created by Administrator on 2016/8/2.
   */
-@Bean
+@Bean(name = Array("accessDecisionManager"))
 class MyAccessDecisionManager extends  AccessDecisionManager{
   override def decide(authentication: Authentication, o: scala.Any, collection: util.Collection[ConfigAttribute]): Unit = {
    val configA = collection.iterator()

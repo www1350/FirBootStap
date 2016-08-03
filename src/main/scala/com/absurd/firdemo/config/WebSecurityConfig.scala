@@ -18,9 +18,9 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-  @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
-  @Autowired  var  accessDecisionManager: MyAccessDecisionManager = _
-  @Autowired var securityMetadataSource:MySecurityMetadataSource = _
+  @Qualifier(value = "securityUserDetailsService") var securityUserDetailsService:SecurityUserDetailsService = _
+  @Qualifier(value = "accessDecisionManager")  var  accessDecisionManager: MyAccessDecisionManager = _
+  @Qualifier(value = "securityMetadataSource") var securityMetadataSource:MySecurityMetadataSource = _
   override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
 
   def  filterSecurityInterceptor:FilterSecurityInterceptor ={

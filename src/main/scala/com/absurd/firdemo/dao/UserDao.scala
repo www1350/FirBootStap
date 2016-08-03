@@ -13,6 +13,4 @@ import org.springframework.stereotype.Repository
 trait UserDao extends JpaRepository[User, java.lang.Long]   {
   def getUserByUsername(username: String): User
 
-  @Query("select o from Role r Inner join Permit p where r.id = p.rid and p.uid=?")
-  def getRoleList(uid:Long) : List[Role]
 }
