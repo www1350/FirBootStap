@@ -3,8 +3,10 @@ package com.absurd.firdemo.config
 import javax.annotation.Resource
 
 import com.absurd.firdemo.security.{MyAccessDecisionManager, MyAuthenticationProvider, MySecurityMetadataSource, SecurityUserDetailsService}
+import com.absurd.firdemo.service.UserService
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.{Autowired, Qualifier}
-import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.{Bean, Configuration}
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,17 +18,21 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
   */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-  @Qualifier(value = "securityUserDetailsService") var securityUserDetailsService:SecurityUserDetailsService = _
-  @Qualifier(value = "accessDecisionManager")  var  accessDecisionManager: MyAccessDecisionManager = _
-  @Qualifier(value = "securityMetadataSource") var securityMetadataSource:MySecurityMetadataSource = _
-  @Qualifier(value = "myAuthenticationProvider") var myAuthenticationProvider:MyAuthenticationProvider = _
-
+  @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
+  @Autowired  var  accessDecisionManager: MyAccessDecisionManager = _
+  @Autowired var securityMetadataSource:MySecurityMetadataSource = _
+  @Autowired var myAuthenticationProvider:MyAuthenticationProvider = _
+  val logger = LoggerFactory.getLogger(classOf[WebSecurityConfig])
 //  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
-override def configure(auth: AuthenticationManagerBuilder): Unit = auth.authenticationProvider(myAuthenticationProvider)
+override def configure(auth: AuthenticationManagerBuilder): Unit = {
+  auth.authenticationProvider(myAuthenticationProvider)
+}
+
+//  @Bean
   def  filterSecurityInterceptor:FilterSecurityInterceptor ={
-    val filterSecurityInterceptor = new FilterSecurityInterceptor
+    val filterSecurityInterceptor = new FilterSecurityInterceptor()
     filterSecurityInterceptor.setSecurityMetadataSource(securityMetadataSource)
     filterSecurityInterceptor.setAuthenticationManager(authenticationManager())
     filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager)

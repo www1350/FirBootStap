@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.{UserDetails, UserDetailsService, UsernameNotFoundException}
+import org.springframework.stereotype.Component
 
 import scala.collection.mutable
 import collection.JavaConverters._
@@ -19,7 +20,7 @@ import collection.JavaConverters._
 /**
   * Created by Administrator on 2016/8/2.
   */
-@Bean(name = Array("securityUserDetailsService"))
+@Component
 class SecurityUserDetailsService extends  UserDetailsService{
   val logger = LoggerFactory.getLogger(classOf[SecurityUserDetailsService])
   @Autowired var userService : UserService = _

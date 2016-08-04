@@ -8,11 +8,12 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder
 import org.springframework.security.authentication.{AuthenticationProvider, BadCredentialsException, UsernamePasswordAuthenticationToken}
 import org.springframework.security.core.{Authentication, GrantedAuthority}
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Component
 
 /**
   * Created by Administrator on 2016/8/4.
   */
-@Bean(name = Array("myAuthenticationProvider"))
+@Component
 class MyAuthenticationProvider extends AuthenticationProvider {
   @Qualifier(value = "securityUserDetailsService") var securityUserDetailsService:SecurityUserDetailsService = _
   override def authenticate(authentication: Authentication): Authentication = {

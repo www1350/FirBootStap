@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
   * 系统启动加载系统权限  用户登入验证权限,从数据库提取权限和资源，装配到HashMap中
   * Created by Administrator on 2016/8/2.
   */
-@Bean(name = Array("securityMetadataSource"))
+@Component
 class MySecurityMetadataSource extends FilterInvocationSecurityMetadataSource{
   override def getAttributes(o: scala.Any): util.Collection[ConfigAttribute] = null
 
