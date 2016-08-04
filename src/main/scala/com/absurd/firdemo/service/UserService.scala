@@ -2,6 +2,7 @@ package com.absurd.firdemo.service
 
 import com.absurd.firdemo.dao.{RoleDao, UserDao}
 import com.absurd.firdemo.model.{Permit, Role, User}
+import com.absurd.firdemo.utils.{ MyMD5PasswordEncoder}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -22,7 +23,16 @@ class UserService {
 
   def getUserByUsername(username: String): User = userDao.getUserByUsername(username)
 
-  def getUserRoles(uid : Long):List[Role] = userDao.getUserRoles(uid)
+  def register(username: String,password: String):Boolean = {
+    if(userDao.getUserByUsername(username) != null) return false
+    val user = new User()
+    user.setUsername(username)
+    user.setPassword(MyMD5PasswordEncoder.encode(password))
+    userDao.save(user)
+    true
+  }
+
+
 
   //def  getAll:  java.util.List[User] = {
   // val list =  new  java.util.ArrayList[User]()

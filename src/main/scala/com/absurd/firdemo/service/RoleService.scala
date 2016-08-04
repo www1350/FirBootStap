@@ -13,5 +13,5 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class RoleService {
   @Autowired var roleDao : RoleDao = _
-
+  def getUserRoles(uid : Long) = roleDao.getUserRoles(uid)
 }

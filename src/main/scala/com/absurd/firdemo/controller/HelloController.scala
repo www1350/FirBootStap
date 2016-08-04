@@ -3,6 +3,7 @@ package com.absurd.firdemo.controller
 import java.util
 
 import com.absurd.firdemo.WordUtils
+import com.absurd.firdemo.dto.MessageDTO
 import com.absurd.firdemo.model.User
 import com.absurd.firdemo.service.UserService
 import org.slf4j.LoggerFactory
@@ -27,8 +28,7 @@ class HelloController {
   val logger = LoggerFactory.getLogger(classOf[HelloController])
 
 
-  @RequestMapping(value=Array("/login"),method=Array(RequestMethod.POST))
-  def login:String = "login"
+
 
   @RequestMapping(value = Array("/home"), method = Array(RequestMethod.GET))
   @ResponseBody
@@ -87,4 +87,5 @@ class HelloController {
 
     userService.getUserByUsername(username)
   }
-}
+
+  }

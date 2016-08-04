@@ -23,12 +23,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
   @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
   @Autowired  var  accessDecisionManager: MyAccessDecisionManager = _
   @Autowired var securityMetadataSource:MySecurityMetadataSource = _
-//  @Autowired var myAuthenticationProvider:MyAuthenticationProvider = _
+  @Autowired var myAuthenticationProvider:MyAuthenticationProvider = _
   val logger = LoggerFactory.getLogger(classOf[WebSecurityConfig])
-  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
-//override def configure(auth: AuthenticationManagerBuilder): Unit = {
-//  auth.authenticationProvider(myAuthenticationProvider)
-//}
+//  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
+override def configure(auth: AuthenticationManagerBuilder): Unit = {
+  auth.authenticationProvider(myAuthenticationProvider)
+}
 
 //  @Bean
   def  filterSecurityInterceptor:FilterSecurityInterceptor ={
@@ -41,15 +41,16 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 
   override def configure(http: HttpSecurity): Unit = {
-    http.authorizeRequests().antMatchers("/login.html","/index.html").anonymous()
-    http.formLogin().loginPage("/login.html").failureUrl("/login.html?error=true").defaultSuccessUrl("/index.html").loginProcessingUrl("/login")
-    http.logout().logoutSuccessUrl("/login.html").logoutUrl("/logout")
     http.addFilterBefore(filterSecurityInterceptor,classOf[FilterSecurityInterceptor])
-    http.sessionManagement().invalidSessionUrl("/logout")
+      .formLogin().loginPage("/login.html").failureUrl("/login.html?error=true").defaultSuccessUrl("/index.html").loginProcessingUrl("/login")
+      .and().logout().logoutSuccessUrl("/login.html").logoutUrl("/logout")
+      .and().sessionManagement().invalidSessionUrl("/logout")
+    http.authorizeRequests().antMatchers("/login.html","/index.html","/register").anonymous()
+    http.csrf().disable()
 
 //    http.authorizeRequests().accessDecisionManager(accessDecisionManager).accessDeniedPage("/login")
 //    http.httpBasic()
-//    http.csrf().disable()
+
 
 
   }

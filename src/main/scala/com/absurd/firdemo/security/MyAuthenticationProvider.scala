@@ -2,6 +2,7 @@ package com.absurd.firdemo.security
 
 import java.util
 
+import com.absurd.firdemo.utils.MyMD5PasswordEncoder
 import org.springframework.beans.factory.annotation.{Autowired, Qualifier}
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder
@@ -24,10 +25,9 @@ class MyAuthenticationProvider extends AuthenticationProvider {
       throw new BadCredentialsException("Username not found.")
     }
 
-    val encoder : Md5PasswordEncoder = new Md5PasswordEncoder()
-    encoder.setEncodeHashAsBase64(true)
+
     //加密过程在这里体现
-    if (!(encoder.encodePassword(password.toString(),username)).equals(user.getPassword())) {
+    if (MyMD5PasswordEncoder.valid(user.getPassword(),password.toString())) {
       throw new BadCredentialsException("Wrong password.");
     }
 

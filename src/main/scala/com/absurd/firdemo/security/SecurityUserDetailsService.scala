@@ -34,17 +34,17 @@ class SecurityUserDetailsService extends  UserDetailsService{
      val accountNonExpired:Boolean  = true
      val credentialsNonExpired:Boolean  = true
      val accountNonLocked:Boolean  = true
-    logger.info("aaa")
     	new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), enables, accountNonExpired, credentialsNonExpired,
       accountNonLocked, grantedAuths)
 
   }
 
   private  def obtionGrantedAuthorities(user : User) : util.Collection[GrantedAuthority] = {
-    val roles:List[Role] = userService.getUserRoles(user.getId)
+    val roles:java.util.List[Role] = roleService.getUserRoles(user.getId)
     val authSet:util.Set[GrantedAuthority]  = new util.HashSet[GrantedAuthority]()
-    for(r <- roles)
-    authSet.add(new SimpleGrantedAuthority(r.getRoleCode))
+    val ita = roles.iterator()
+    while(ita.hasNext())
+    authSet.add(new SimpleGrantedAuthority(ita.next().getRoleCode()))
     authSet
   }
 }
