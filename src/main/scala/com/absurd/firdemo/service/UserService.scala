@@ -22,13 +22,7 @@ class UserService {
 
   def getUserByUsername(username: String): User = userDao.getUserByUsername(username)
 
-  def getUserRoles(uid : Long):List[Role] = {
-   val user:User =  userDao.getOne(uid)
-    val permits:Set[Permit] = user.getPermit
-    var roleIds:List[Role] = List()
-    for(e <- permits )  roleIds :+  roleDao.findOne(e.getRole().getId())
-    roleIds
-  }
+  def getUserRoles(uid : Long):List[Role] = userDao.getUserRoles(uid)
 
   //def  getAll:  java.util.List[User] = {
   // val list =  new  java.util.ArrayList[User]()

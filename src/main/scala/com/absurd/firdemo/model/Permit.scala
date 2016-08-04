@@ -15,28 +15,27 @@ import scala.beans.BeanProperty
 @Table(name = "t_permit")
 class Permit {
   @(Id@field)
-  @GeneratedValue(generator="increment")
-  @GenericGenerator(name="increment", strategy = "increment")
+  @GeneratedValue(strategy =GenerationType.AUTO)
   @(Column@field)(name = "id")
   @JsonIgnore
   var id:Long = null.asInstanceOf[Long]
 
-//  @(Column@field)(name = "uid")
-//  @BeanProperty
-//  var uid:Long = null.asInstanceOf[Long]
-
-
-//  @(Column@field)(name = "rid")
-//  @BeanProperty
-//  var rid:Long = null.asInstanceOf[Long]
-
-  @ManyToOne
-  @JoinColumn(name = "uid")
+  @(Column@field)(name = "uid")
   @BeanProperty
-  var role:Role = _
+  var uid:Long = null.asInstanceOf[Long]
 
-  @ManyToOne
-  @JoinColumn(name = "rid")
+
+  @(Column@field)(name = "rid")
   @BeanProperty
-  var user:User = _
+  var rid:Long = null.asInstanceOf[Long]
+
+//  @ManyToOne
+//  @JoinColumn(name = "uid")
+//  @BeanProperty
+//  var role:Role = _
+//
+//  @ManyToOne
+//  @JoinColumn(name = "rid")
+//  @BeanProperty
+//  var user:User = _
 }

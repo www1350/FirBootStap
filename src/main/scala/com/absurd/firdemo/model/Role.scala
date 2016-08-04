@@ -15,8 +15,7 @@ import scala.beans.BeanProperty
 @Table(name = "t_role")
 class Role {
   @(Id@field)
-  @GeneratedValue(generator="increment")
-  @GenericGenerator(name="increment", strategy = "increment")
+  @GeneratedValue(strategy =GenerationType.AUTO)
   @(Column@field)(name = "id")
   @BeanProperty
   @JsonIgnore
@@ -30,7 +29,7 @@ class Role {
   @BeanProperty
   var roleCode:String = null.asInstanceOf[String]
 
-  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-  @BeanProperty
-  var permit:Set[Permit] = _
+//  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+//  @BeanProperty
+//  var permit:java.util.Set[Permit] = _
 }

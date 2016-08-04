@@ -2,7 +2,7 @@ package com.absurd.firdemo.config
 
 import javax.annotation.Resource
 
-import com.absurd.firdemo.security.{MyAccessDecisionManager, MySecurityMetadataSource, SecurityUserDetailsService}
+import com.absurd.firdemo.security.{MyAccessDecisionManager, MyAuthenticationProvider, MySecurityMetadataSource, SecurityUserDetailsService}
 import org.springframework.beans.factory.annotation.{Autowired, Qualifier}
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -21,8 +21,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
   @Qualifier(value = "securityUserDetailsService") var securityUserDetailsService:SecurityUserDetailsService = _
   @Qualifier(value = "accessDecisionManager")  var  accessDecisionManager: MyAccessDecisionManager = _
   @Qualifier(value = "securityMetadataSource") var securityMetadataSource:MySecurityMetadataSource = _
-  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
+  @Qualifier(value = "myAuthenticationProvider") var myAuthenticationProvider:MyAuthenticationProvider = _
 
+//  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
+override def configure(auth: AuthenticationManagerBuilder): Unit = auth.authenticationProvider(myAuthenticationProvider)
   def  filterSecurityInterceptor:FilterSecurityInterceptor ={
     val filterSecurityInterceptor = new FilterSecurityInterceptor
     filterSecurityInterceptor.setSecurityMetadataSource(securityMetadataSource)
@@ -38,9 +40,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     http.logout().logoutSuccessUrl("/login.html").logoutUrl("/logout")
     http.addFilterBefore(filterSecurityInterceptor,classOf[FilterSecurityInterceptor])
     http.sessionManagement().invalidSessionUrl("/logout")
+
 //    http.authorizeRequests().accessDecisionManager(accessDecisionManager).accessDeniedPage("/login")
-    http.httpBasic()
-    http.csrf().disable()
+//    http.httpBasic()
+//    http.csrf().disable()
 
 
   }
