@@ -23,12 +23,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter{
   @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
   @Autowired  var  accessDecisionManager: MyAccessDecisionManager = _
   @Autowired var securityMetadataSource:MySecurityMetadataSource = _
-  @Autowired var myAuthenticationProvider:MyAuthenticationProvider = _
+//  @Autowired var myAuthenticationProvider:MyAuthenticationProvider = _
   val logger = LoggerFactory.getLogger(classOf[WebSecurityConfig])
-//  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
-override def configure(auth: AuthenticationManagerBuilder): Unit = {
-  auth.authenticationProvider(myAuthenticationProvider)
-}
+  override def configure(auth: AuthenticationManagerBuilder): Unit = auth.userDetailsService(securityUserDetailsService)
+//override def configure(auth: AuthenticationManagerBuilder): Unit = {
+//  auth.authenticationProvider(myAuthenticationProvider)
+//}
 
 //  @Bean
   def  filterSecurityInterceptor:FilterSecurityInterceptor ={

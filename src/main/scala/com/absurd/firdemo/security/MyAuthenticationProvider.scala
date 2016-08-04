@@ -2,7 +2,7 @@ package com.absurd.firdemo.security
 
 import java.util
 
-import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.{Autowired, Qualifier}
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder
 import org.springframework.security.authentication.{AuthenticationProvider, BadCredentialsException, UsernamePasswordAuthenticationToken}
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
   */
 @Component
 class MyAuthenticationProvider extends AuthenticationProvider {
-  @Qualifier(value = "securityUserDetailsService") var securityUserDetailsService:SecurityUserDetailsService = _
+  @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
   override def authenticate(authentication: Authentication): Authentication = {
     val username = authentication.getName()
     val password = authentication.getCredentials()
