@@ -16,19 +16,25 @@ object  SimpleSpy{
     Source.fromURL(url,"GBK").mkString
   }
   def main(args: Array[String]): Unit = {
-    println(SimpleSpy.getChaset("http://www.163.com")+"")
+    val content = SimpleSpy.getUrl("http://www.163.com")
+//    println(content+"")
+    println(SimpleSpy.parseSrc(content)+"")
   }
-
+  def parseSrc(content:String) :String= {
+    val pattern =  "href=\"[0-9a-zA-Z.:/#\\?=&!]+\"".r
+    pattern.findAllMatchIn(content).mkString(" ||| ")
+  }
   def getChaset(url:String):String = {
-    val pattern =  "charset[\\s]*=(\")*[0-9a-zA-Z\\-]+\"".r
+    val pattern =  "charset[\\s]*=(\")*[0-9a-zA-Z\\-]+".r
     val lines =  Source.fromURL(url,"GBK").mkString
-   val input = pattern.findFirstMatchIn(lines).mkString
+   val input = pattern.findFirstMatchIn(lines).mkString.replaceAll(" ","")
     val MatchStock = """([a-zA-Z]+)=([0-9a-zA-Z]+)""".r
     input match {
-      case MatchStock(stock, price) => printf("stock=%s,price=%s\n", stock,price)
-      case _ => println("invalid input " + input)
+      case MatchStock(stock, price) => return price
+      case _ => null
     }
-    "1"
+
+
 
   }
 
