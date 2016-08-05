@@ -16,8 +16,8 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 /**
   * Created by Administrator on 2016/8/2.
   */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter{
   @Autowired var securityUserDetailsService:SecurityUserDetailsService = _
